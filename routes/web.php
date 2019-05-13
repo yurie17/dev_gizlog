@@ -40,11 +40,21 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::post('attendance/modify', ['as' => 'attendance.modify.store', 'uses' => 'AttendanceController@storeModifyRequest']);
     Route::get('attendance/mypage', ['as' => 'attendance.mypage', 'uses' => 'AttendanceController@showMypage']);
 
+    Route::resource('report', DailyReportController::class);
+
     Route::get('question/{id}/mypage', ['as' => 'question.mypage', 'uses' => 'QuestionController@myPage']);
     Route::post('question/confirm', ['as' => 'question.confirm', 'uses' => 'QuestionController@confirm']);
     Route::post('question/{id}/confirm', ['as' => 'confirm.update', 'uses' => 'QuestionController@confirm']);
     Route::post('question/{id}/comment', ['as' => 'question.comment', 'uses' => 'QuestionController@storeComment']);
     Route::resource('question', QuestionController::class);
+
+    // Route:get('report',['as' => 'report.index', 'uses' => 'DailyReportController@index']);
+    // Route:post('report', ['as' => 'report.store', 'uses' => 'DailyReportController@store']);
+    // Route:get('report/create', ['as' => 'report.create', 'uses' => 'DailyReportController@create']);
+    // Route:get('report/{report}', ['as' => 'report.show', 'uses' => 'DailyReportController@show']);
+    // Route:put('report/{report}', ['as' => 'report.update', 'uses' => 'DailyReportController@update']);
+    // Route:get('report/{report}/edit', ['as' => 'report.edit', 'uses' => 'DailyReportController@edit']);
+
 
 });
 
@@ -90,4 +100,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
     Route::get('/register/', 'Auth\AdminRegisterController@showAdminRegistrationForm');
 
 });
+
+
 
