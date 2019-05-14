@@ -7,16 +7,19 @@ use App\Http\Requests\User\DailyReportRequest;
 use Illuminate\Http\Request;
 use App\Models\DailyReport;
 use Illuminate\Support\Facades\Auth;
+// use App\Services\CalcDate;
 
 class DailyReportController extends Controller
 {
 
     protected $report;
+    // protected $calc;
 
     public function __construct(DailyReport $report){
 
         $this->middleware('auth');
         $this->report = $report;
+        // $this->calc = $calc;
     }
     /**
      * Display a listing of the resource.
@@ -53,7 +56,7 @@ class DailyReportController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-        $this->dailyreport->fill($inputs)->save();
+        $this->report->create($inputs);
         return redirect()->route('report.index');
     }
 
@@ -65,7 +68,8 @@ class DailyReportController extends Controller
      */
     public function show($id)
     {
-        //
+        $daily_report = $this->report->find($id);
+        return view('user.daily_report.show', compact('daily_report'));
     }
 
     /**
@@ -76,8 +80,8 @@ class DailyReportController extends Controller
      */
     public function edit($id)
     {
-        $daily = $this->dailyreport->find($id);
-        return view('user.daily_report.edit',compact('daily'));
+        $daily_report = $this->report->find($id);
+        return view('user.daily_report.edit',compact('daily_report'));
     }
 
     /**
@@ -90,7 +94,7 @@ class DailyReportController extends Controller
     public function update(Request $request, $id)
     {
         $input = $request->all();
-        $this->dailyreport->find($id)->fill($input)->save();
+        $this->report->find($id)->fill($input)->save();
         return redirect()->route('report.index');
     }
 
@@ -102,7 +106,7 @@ class DailyReportController extends Controller
      */
     public function destroy($id)
     {
-        $this->todo->find($id)->delete();
+        $this->report->find($id)->delete();
         return redirect()->route('report.index');
     }
 }

@@ -4,10 +4,10 @@
 <h2 class="brand-header">日報作成</h2>
 <div class="main-wrap">
   <div class="container">
-    {!! Form::open(['route' => 'report.index', 'method' => 'get']) !!}
+    {!! Form::open(['route' => 'report.store', 'method' => 'get']) !!}
         {!! Form::input('hidden', 'user_id',null, ['class' => 'form-control']) !!}
         <div class="form-group form-size-small">
-      {!! Form::input('data', 'reporting_time','2019,05,13',['class' => 'form-control']) !!}
+      {!! Form::input('data', 'reporting_time',date("Y/m/d"),['class' => 'form-control']) !!}
       <span class="help-block"></span>
       </div>
       <div class="form-group">
