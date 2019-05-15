@@ -57,9 +57,9 @@ class DailyReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DailyReportRequest $dailyreportrequest)
+    public function store(Request $request)
     {
-        $inputs = $dailyreportrequest->all();
+        $inputs = $request->all();
         $this->report->create($inputs);
         return redirect()->route('report.index');
     }
@@ -98,9 +98,9 @@ class DailyReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, DailyReportRequest $dailyreportrequest)
+    public function update(Request $request, $id)
     {
-        $input = $dailyreportrequest->all();
+        $input = $request->all();
         $this->report->find($id)->fill($input)->save();
         return redirect()->route('report.index');
     }
