@@ -7,6 +7,7 @@ use App\Http\Requests\User\DailyReportRequest;
 use Illuminate\Http\Request;
 use App\Models\DailyReport;
 use Illuminate\Support\Facades\Auth;
+use Carbon;
 // use App\Services\CalcDate;
 
 class DailyReportController extends Controller
@@ -31,10 +32,12 @@ class DailyReportController extends Controller
         $userId = Auth::id();
         $inputs = $request->all();
         $dailyrepors = $this->report->get();
+        // dd($request);
         // dd($dailyrepors);
 
 
-        return view('user.daily_report.index', compact('dailyrepors'));
+
+        return view('user.daily_report.index', compact('dailyrepors','inputs'));
     }
 
     /**
@@ -50,12 +53,13 @@ class DailyReportController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param DailyReportRequest  $dailyreportrequest
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DailyReportRequest $dailyreportrequest)
     {
-        $inputs = $request->all();
+        $inputs = $dailyreportrequest->all();
         $this->report->create($inputs);
         return redirect()->route('report.index');
     }
@@ -69,6 +73,7 @@ class DailyReportController extends Controller
     public function show($id)
     {
         $daily_report = $this->report->find($id);
+        // dd($daily_report);
         return view('user.daily_report.show', compact('daily_report'));
     }
 
@@ -80,6 +85,7 @@ class DailyReportController extends Controller
      */
     public function edit($id)
     {
+        
         $daily_report = $this->report->find($id);
         return view('user.daily_report.edit',compact('daily_report'));
     }
@@ -87,13 +93,14 @@ class DailyReportController extends Controller
     /**
      * Update the specified resource in storage.
      *
+     * @param DailyReportRequest  $dailyreportrequest
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, DailyReportRequest $dailyreportrequest)
     {
-        $input = $request->all();
+        $input = $dailyreportrequest->all();
         $this->report->find($id)->fill($input)->save();
         return redirect()->route('report.index');
     }
