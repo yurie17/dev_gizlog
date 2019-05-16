@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\Models\DailyReport;
 use Illuminate\Support\Facades\Auth;
 use Carbon;
-// use App\Services\CalcDate;
 
 class DailyReportController extends Controller
 {
@@ -31,11 +30,15 @@ class DailyReportController extends Controller
     {
         $userId = Auth::id();
         $inputs = $request->all();
-        $dailyrepors = $this->report->get();
+        // $dailyrepors = $this->report->all();
         // dd($request);
         // dd($dailyrepors);
 
-
+        if (empty($inputs )) {
+            $dailyrepors = $this->report->fetchAllPersonalReports($userId);
+        } else {
+            $dailyrepors = $this->report->fetchSearchingPersonalReports($userId,$inputs);
+        }
 
         return view('user.daily_report.index', compact('dailyrepors','inputs'));
     }
@@ -57,7 +60,7 @@ class DailyReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DailyReportRequest $request)
     {
         $inputs = $request->all();
         $this->report->create($inputs);
@@ -98,7 +101,7 @@ class DailyReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DailyReportRequest $request, $id)
     {
         $input = $request->all();
         $this->report->find($id)->fill($input)->save();
