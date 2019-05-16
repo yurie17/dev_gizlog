@@ -48,14 +48,6 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::post('question/{id}/comment', ['as' => 'question.comment', 'uses' => 'QuestionController@storeComment']);
     Route::resource('question', QuestionController::class);
 
-    // Route:get('report',['as' => 'report.index', 'uses' => 'DailyReportController@index']);
-    // Route:post('report', ['as' => 'report.store', 'uses' => 'DailyReportController@store']);
-    // Route:get('report/create', ['as' => 'report.create', 'uses' => 'DailyReportController@create']);
-    // Route:get('report/{report}', ['as' => 'report.show', 'uses' => 'DailyReportController@show']);
-    // Route:put('report/{report}', ['as' => 'report.update', 'uses' => 'DailyReportController@update']);
-    // Route:get('report/{report}/edit', ['as' => 'report.edit', 'uses' => 'DailyReportController@edit']);
-
-
 });
 
 

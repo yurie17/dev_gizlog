@@ -13,13 +13,11 @@ class DailyReportController extends Controller
 {
 
     protected $report;
-    // protected $calc;
 
     public function __construct(DailyReport $report){
 
         $this->middleware('auth');
         $this->report = $report;
-        // $this->calc = $calc;
     }
     /**
      * Display a listing of the resource.
@@ -30,9 +28,6 @@ class DailyReportController extends Controller
     {
         $userId = Auth::id();
         $inputs = $request->all();
-        // $dailyrepors = $this->report->all();
-        // dd($request);
-        // dd($dailyrepors);
 
         if (empty($inputs )) {
             $dailyrepors = $this->report->fetchAllPersonalReports($userId);
@@ -76,7 +71,6 @@ class DailyReportController extends Controller
     public function show($id)
     {
         $daily_report = $this->report->find($id);
-        // dd($daily_report);
         return view('user.daily_report.show', compact('daily_report'));
     }
 
@@ -88,7 +82,6 @@ class DailyReportController extends Controller
      */
     public function edit($id)
     {
-        
         $daily_report = $this->report->find($id);
         return view('user.daily_report.edit',compact('daily_report'));
     }
