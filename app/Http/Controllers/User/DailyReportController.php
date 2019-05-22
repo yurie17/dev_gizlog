@@ -19,6 +19,7 @@ class DailyReportController extends Controller
         $this->middleware('auth');
         $this->report = $report;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +30,7 @@ class DailyReportController extends Controller
         $userId = Auth::id();
         $inputs = $request->all();
 
-        if (empty($inputs )) {
+        if (empty($inputs)) {
             $dailyrepors = $this->report->fetchAllPersonalReports($userId);
         } else {
             $dailyrepors = $this->report->fetchSearchingPersonalReports($userId,$inputs);

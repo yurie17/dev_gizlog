@@ -28,7 +28,6 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::post('/register', 'Auth\RegisterController@register');
     Route::get('/register/{query}', 'Auth\RegisterController@showRegistrationForm');
 
-
     Route::get('home', 'UserController@index')->name('home');
 
     Route::get('attendance', ['as' => 'attendance.index', 'uses' => 'AttendanceController@index']);
@@ -47,7 +46,6 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
     Route::post('question/{id}/confirm', ['as' => 'confirm.update', 'uses' => 'QuestionController@confirm']);
     Route::post('question/{id}/comment', ['as' => 'question.comment', 'uses' => 'QuestionController@storeComment']);
     Route::resource('question', QuestionController::class);
-
 });
 
 
@@ -90,7 +88,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.' ,'namespace' => 'Admin'], fu
 
     Route::post('/register', ['as' => 'register', 'uses' => 'Auth\AdminRegisterController@adminRegister']);
     Route::get('/register/', 'Auth\AdminRegisterController@showAdminRegistrationForm');
-
 });
 
 
